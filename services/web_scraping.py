@@ -10,10 +10,12 @@ def createDriver() -> webdriver.Chrome:
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--disable-web-security")
+    chrome_options.add_argument("--disable-site-isolation-trials")
+    chrome_options.add_argument("--disable-features=IsolateOrigins,site-per-process")
     
     prefs = {"profile.managed_default_content_settings.images":2}
     chrome_options.headless = True
-
 
     chrome_options.add_experimental_option("prefs", prefs)
     myDriver = webdriver.Chrome(options=chrome_options)
@@ -25,8 +27,8 @@ def get_entities(name: str, driver: webdriver.Chrome):
     url = 'https://projects.worldbank.org/en/projects-operations/procurement/debarred-firms'
     driver.get(url)
 
-    #driver.implicitly_wait(8)
-    time.sleep(18)
+    driver.implicitly_wait(8)
+    time.sleep(8)
 
     html = driver.page_source
     soup = BeautifulSoup(html, features="html.parser")
