@@ -27,8 +27,8 @@ def get_entities(name: str, driver: webdriver.Chrome):
     url = 'https://projects.worldbank.org/en/projects-operations/procurement/debarred-firms'
     driver.get(url)
 
-    driver.implicitly_wait(8)
-    time.sleep(8)
+    #driver.implicitly_wait(8)
+    time.sleep(18)
 
     html = driver.page_source
     soup = BeautifulSoup(html, features="html.parser")
@@ -39,11 +39,11 @@ def get_entities(name: str, driver: webdriver.Chrome):
     for tr in trs:
         if(name.lower() in tr.td.text.lower()):
             el = {
-                "Firm Name": tr.td.text,
+                "FirmName": tr.td.text,
                 "Address": tr.contents[2].text,
                 "Country": tr.contents[3].text,
-                "From Date": tr.contents[4].text,
-                "To Date": tr.contents[5].text,
+                "FromDate": tr.contents[4].text,
+                "ToDate": tr.contents[5].text,
                 "Grounds": tr.contents[6].text
             }
             entities.append(el)
